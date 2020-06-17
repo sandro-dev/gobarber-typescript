@@ -1,6 +1,5 @@
 import { getRepository } from 'typeorm';
 import User from '../models/User';
-import usersRoutes from '../routes/users.routes';
 
 interface Request {
   name: string;
