@@ -3,6 +3,8 @@ import { getRepository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
 import User from '../models/User';
 
+import authConfig from '../config/auth';
+
 interface Request {
   email: string;
   password: string;
@@ -30,8 +32,10 @@ class AuthenticateUserService {
       throw new Error('Email and/or password combination is invalid 2');
     }
 
-    const token = sign({}, '943cd65afd462b007dca05ba73b833f5', {
-      expiresIn: '1d',
+    const { secret, expiresIn } = authConfig.jwt;
+
+    const token = sign({}, secret, {
+      expiresIn,
       subject: user.id,
     });
 
