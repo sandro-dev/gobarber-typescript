@@ -21,22 +21,18 @@ appointmentsRoutes.get('/', async (request, response) => {
 
 appointmentsRoutes.post('/', async (request, response) => {
   console.log(request.user);
-  try {
-    const { provider_id, date } = request.body;
+  const { provider_id, date } = request.body;
 
-    const parsedDate = parseISO(date);
+  const parsedDate = parseISO(date);
 
-    const createAppointment = new CreateAppointmentService();
+  const createAppointment = new CreateAppointmentService();
 
-    const appointments = await createAppointment.execute({
-      provider_id,
-      date: parsedDate,
-    });
+  const appointments = await createAppointment.execute({
+    provider_id,
+    date: parsedDate,
+  });
 
-    return response.json(appointments);
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
+  return response.json(appointments);
 });
 
 export default appointmentsRoutes;
